@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class TaskList extends StatelessWidget {
   final List<Task> tasks;
 
-  const TaskList({Key? key, required this.tasks}) : super(key: key);
+  const TaskList({super.key, required this.tasks});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class TaskList extends StatelessWidget {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(15),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
         final task = tasks[index];
@@ -60,18 +60,19 @@ class TaskList extends StatelessWidget {
             ),
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 20),
-            child: const Icon(
+            child: const Center(
+                child: Icon(
               Icons.delete_outline,
               color: Colors.white,
               size: 30,
-            ),
+            )),
           ),
-          direction: DismissDirection.endToStart,
+          direction: DismissDirection.up,
           onDismissed: (direction) {
             Provider.of<TaskProvider>(context, listen: false)
                 .deleteTask(task.id);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Task deleted'),
                 behavior: SnackBarBehavior.floating,
               ),
